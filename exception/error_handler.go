@@ -1,7 +1,7 @@
 package exception
 
 import (
-	"qolbu/model"
+	"github.com/ternaknesia/qolbu/model"
 	"github.com/gofiber/fiber/v2"
 )
 

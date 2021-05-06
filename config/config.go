@@ -1,7 +1,7 @@
 package config
 
 import (
-	"qolbu/exception"
+	"github.com/ternaknesia/qolbu/exception"
 	"github.com/joho/godotenv"
 	"os"
 )

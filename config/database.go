@@ -3,7 +3,7 @@ package config
 import (
 	"context"
 	"database/sql"
-	"qolbu/exception"
+	"github.com/ternaknesia/qolbu/exception"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
 	"time"
