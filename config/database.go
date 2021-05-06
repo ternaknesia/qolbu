@@ -3,10 +3,11 @@ package config
 import (
 	"context"
 	"database/sql"
-	"github.com/ternaknesia/qolbu/exception"
 	"fmt"
-	_ "github.com/go-sql-driver/mysql"
 	"time"
+
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/ternaknesia/qolbu/exception"
 )
 
 func configDatabase(configuration Config, target string) (string, string, string, string) {
@@ -18,7 +19,7 @@ func configDatabase(configuration Config, target string) (string, string, string
 }
 
 func createDSN(configuration Config, target string) string {
-	dbHost, dbUser, dbPass, dbName := configDatabase(configuration, target);
+	dbHost, dbUser, dbPass, dbName := configDatabase(configuration, target)
 	return fmt.Sprintf("%s:%s@tcp(%s:3306)/%s?charset=utf8&parseTime=true&loc=Local", dbUser, dbPass, dbHost, dbName)
 }
 
@@ -36,16 +37,8 @@ func createContext() (context.Context, context.CancelFunc) {
 	return context.WithTimeout(context.Background(), 300*time.Second)
 }
 
-func CreateDatabase(configuration Config, target string) *sql.DB {
+func CreateDatabase(configuration Config, target string) (*sql.DB, context.Context, context.CancelFunc) {
 	ctx, cancel := createContext()
 	defer cancel()
-	return openDatabase(ctx, configuration, target)
-}
-
-func SrcDatabase(configuration Config) *sql.DB {
-	return CreateDatabase(configuration, "_SRC")
-}
-
-func ToDatabase(configuration Config) *sql.DB {
-	return CreateDatabase(configuration, "_TO")
+	return openDatabase(ctx, configuration, target), ctx, cancel
 }
