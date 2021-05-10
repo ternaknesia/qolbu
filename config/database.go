@@ -37,8 +37,8 @@ func CreateContext() (context.Context, context.CancelFunc) {
 	return context.WithTimeout(context.Background(), 300*time.Second)
 }
 
-func CreateDatabase(configuration Config, target string) (*sql.DB, context.Context) {
+func CreateDatabase(configuration Config, target string) *sql.DB {
 	ctx, cancel := CreateContext()
 	defer cancel()
-	return openDatabase(ctx, configuration, target), ctx
+	return openDatabase(ctx, configuration, target)
 }
